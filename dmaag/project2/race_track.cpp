@@ -40,6 +40,9 @@ int main()
       /*BFS search for one fastest way*/
       queue<vertex> queue; // queue for BFS
       int result = -1; //result stays -1 until solution is found
+      if(start_x == end_x && start_y == end_y) {
+         result = 0;
+      }
       visited[start_x][start_y][3][3] = true;
       vertex cur = {start_x, start_y, 0, 0, 0};
       queue.push(cur);
