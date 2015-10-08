@@ -32,3 +32,17 @@ int main(){
                 cout << table[0][num_coins-1] << endl;
         }
 }
+/*
+
+NOTES FROM LECTURE:
+
+DP exercises:
+        1. Define DP Table
+        2. What does one entry represent?
+        3. Come up with recursion
+        4. Order of Computation (Get from dependency of recursion)
+        5. Initial values
+        6. Location of the result
+        7. Backtrack
+
+*/
