@@ -24,12 +24,18 @@ int main(){
                         table[0][j] = 100000; //0 beverages are not possible
                 }
                 //Fill DP Table
+                int diff_bevs = 0;
                 for(int i = 1; i <= num_bev; i++){
                         for(int j = 1; j <= litres; j++){
                                 if(j-volume[i] >= 0){
-                                        table[i][j] = min(cost[i] + table[i][j-volume[i]], table[i-1][j]);
+                                        if(cost[i] + table[i][j-volume[i]] <= table[i-1][j]){
+                                                table[i][j] = cost[i] + table[i][j-volume[i]];
+                                                diff_bevs++;
+                                        } else {
+                                                table[i][j] = table[i-1][j];
+                                        }
+                                        //table[i][j] = min(cost[i] + table[i][j-volume[i]], table[i-1][j]);
                                 } else {
-
                                         table[i][j] = table[i-1][j];
                                 }
                         }
@@ -43,13 +49,34 @@ int main(){
                 }
                 */
                 int min_cost = 1000000;
-                int num_bevs = 0;
+                //int num_bevs = 0;
                 for(int i = 1; i < num_bev; i++){
                         if (min_cost >= table[i][litres] && table[i][litres] > 0) {
                                 min_cost = table[i][litres];
-                                num_bevs = i;
+                                //num_bevs = i;
                         }
                 }
-                cout << min_cost << " " << num_bevs << endl;
+                cout << min_cost << " " << diff_bevs << endl;
         }
 }
+
+/*
+
+NOTES FROM LECTURE:
+
+Was an exam question last year! --> Variant of the Knapsack problem
+
+k Litres of punch
+Each type of dring has volume v[i] and cost c[i]
+Goal: produce at least k litres of drinks as cheap as possible
+
+f(t) = min cost to create at least t litres
+f(t,i) = min cost to create t litres using only the first i types of drinks
+Base cases:
+        f(t,i) = 0 for t <= 0
+        f(t,i) = infty if i <= 0
+Recursion:
+        f(t,i) = min(f(t, i-1), c[i] + f(t-v[i], i))
+
+Need to to backtracking! to find how many different
+*/

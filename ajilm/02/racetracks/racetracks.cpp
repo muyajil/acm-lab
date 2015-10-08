@@ -95,3 +95,9 @@ int main(){
                 }
         }
 }
+
+/*
+
+Need to handle cornercases correctly! (start=end)
+
+*/
