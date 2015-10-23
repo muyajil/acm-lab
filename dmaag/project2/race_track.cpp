@@ -26,7 +26,7 @@ int main()
 
       for(int i = 0; i < obs; i++)
       {
-         int a, b, x, y;
+         int a, b, x, y; //obstacle from [a][b] until [x][y]
          cin >> a >> b >> x >> y;
          for(int k = a; k <= x; k++)
          {

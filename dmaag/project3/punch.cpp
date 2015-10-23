@@ -4,7 +4,7 @@
 
 using namespace std;
 
-struct table_entry {
+struct entry {
    int number_of_drinks;
    int volume;
    int price;
@@ -23,11 +23,18 @@ int main() {
       }
 
       // calcu
-      vector<vector<table_entry> > matrix(n + 1, vector<table_entry>(k + 1, 0));
-      for(int i = 1; i < k + 1; i++) {
-         for(int j = 1; j < n + 1; j++) {
-            
+      entry init = {0, 0, 0};
+      vector<vector<entry> > matrix(k + 1, vector<entry>(n + 1, init));
+      for(int l = 1; l < k + 1; l++) {
+         for(int i = 1; i < n + 1; i++) {
+            if(l - vol[i] >= 0) { // new volume inbound
+               if(matrix[l][i - 1].price > matrix[l - vol[i]][i].price) { // current drink is cheaper
+                  int nprice = matrix[l - vol[i]][i].price
+                  matrix[l][i] = {matrix[l - vol[i]][i].price};
+               }
+            }
          }
       }
+   }
    return 0;
 }
