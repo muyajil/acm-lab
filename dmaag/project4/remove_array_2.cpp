@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+//#include <cmath>
 
 using namespace std;
 
@@ -31,13 +32,31 @@ int main() {
    for(int i = 1; i < n; i++) {
       for(int k = 1; k < n; k++) {
          //fill new cell
-         for(int l = 1)
+         suma = 0; sumb = 0;
+         int current_a = a[i];
+         int current_b = b[k];
+
+         for(int l = i; l >= 0; l--) {
+            suma += a[l];
+            int newSum = current_b * suma + m[(l - 1) * n + k - 1];
+            if(m[i * n + k] > newSum) {
+               m[i * n + k] = newSum;
+            }
+         }
+
+         sumb += current_b; // first case already looked at
+         for(int l = k - 1; l >= 0; l--) {
+            sumb += b[l];
+            int newSum = current_a * sumb + m[(i - 1) * n + l - 1];
+            if(m[i * n + k] > newSum) {
+               m[i * n + k] = newSum;
+            }
+         }
+
       }
    }
 
-   //mout();
-
-   cout << *res << endl;
+   cout << m[n * n - 1] << endl;
 
    return 0;
 }

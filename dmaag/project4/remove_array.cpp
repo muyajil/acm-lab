@@ -10,6 +10,15 @@ vector<int> m;
 int *res;
 int n;
 
+void mout() {
+   for(int i = 0; i < n; i++) {
+      for(int k = 0; k < n; k++) {
+         cout << m[i * n + k] << " ";
+      }
+      cout << endl;
+   }
+}
+
 void check_possible_solution(int index_a, int index_b, int sum) {
    if(index_a >= n || index_b >= n) {return;}
 
@@ -43,15 +52,6 @@ void check_possible_solution(int index_a, int index_b, int sum) {
    return;
 }
 
-void mout() {
-   for(int i = 0; i < n; i++) {
-      for(int k = 0; k < n; k++) {
-         cout << m[i * n + k] << " ";
-      }
-      cout << endl;
-   }
-}
-
 int main() {
    cin >> n;
    a = vector<int>(n);
@@ -69,7 +69,7 @@ int main() {
 
    check_possible_solution(0, 0, 0);
 
-   //mout();
+   mout();
 
    cout << *res << endl;
 
