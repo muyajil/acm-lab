@@ -115,7 +115,7 @@ int main() {
       bool has_solution = false;
       has_solution = solve(q, m);
       //cout << endl;
-      //printm(m);
+      printm(m);
 
       has_solution = check_whole(m);
 
