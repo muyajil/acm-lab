@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+/*
+
+Idea: Start a DFS from the start point and output all paths that include the destination.
+
+*/
+
+using namespace std;
+
+int start, dest;
+int paths = 0;
+
+void dfs(int current_cross, vector<int> &path, vector<bool> &visited, vector<vector<int> > &graph){
+    //iterate through all the neighbours
+    path.push_back(current_cross);
+    visited[current_cross] = true;
+    for(int i = 0; i < graph[current_cross].size(); i++){
+        int next_cross = graph[current_cross][i];
+        if(next_cross == dest){
+            path.push_back(next_cross);
+            for(int j = 0; j < path.size(); j++){
+                cout << path[j] << " ";
+            }
+            cout << "\n";
+            paths++;
+            path.pop_back();
+        } else if (!visited[next_cross]){
+            dfs(next_cross, path, visited, graph);
+        }
+    }
+    visited[current_cross] = false;
+    path.pop_back();
+}
+
+int main(){
+    int testcases; cin >> testcases;
+    while(testcases--){
+        int num_cross, num_streets;
+        cin >> num_cross >> num_streets >> start >> dest;
+        vector<vector<int> > graph(num_cross);
+        for(int i = 0; i < num_streets; i++){
+            int first, second;
+            cin >> first >> second;
+            graph[first].push_back(second);
+            graph[second].push_back(first);
+        }
+        for(int i = 0; i < num_cross; i++){
+            sort(graph[i].begin(), graph[i].end());
+        }
+        vector<int> path;
+        vector<bool> visited(num_cross, false);
+        dfs(start, path, visited, graph);
+        cout << paths << "\n";
+        paths = 0;
+    }
+    return 0;
+}
