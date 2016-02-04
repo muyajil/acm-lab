@@ -69,7 +69,7 @@ long long dc(const vector<pair<int, int> > &points, const int lower, const int u
 }
 
 int main() {
-    //ios_base::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     int tests;
     cin >> tests;
     while(tests--) {
@@ -92,6 +92,3 @@ int main() {
     }
     return 0;
 }
-/*
-1 5 1 1 1346343 11135235 234 57346 86785 23532 56 462362636
-*/
