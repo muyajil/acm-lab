@@ -72,9 +72,9 @@ bool check(vector<int> &m, int index) {
 }
 
 bool solve(queue<int> q, vector<int> &m) {
-   if(q.empty()) {
-      return true;
-   }
+    if(q.empty()) {
+        return true;
+    }
    int idx_next = q.front();
    q.pop();
    bool has_solution = false;
@@ -83,13 +83,48 @@ bool solve(queue<int> q, vector<int> &m) {
       if(check(m, idx_next)) {
          has_solution = solve(q, m);
          if(has_solution) {
-            break;
+            if(q.empty()) {
+                return true;
+            }
+            else {
+                break;
+            }
          }
 
       }
       m[idx_next] = 0;
    }
    return has_solution;
+}
+
+bool check2(const vector<int> &m, const int current) {
+    int row = current / 9;
+    int col = current % 9;
+    for(int i = 0; i < 9; i ++) {
+        int index = row * 9 + i;
+        if(m[index] == m[current] && index != current) { return false; }
+        index = i * 9 + col;
+        if(m[index] == m[current] && index != current) { return false; }
+    }
+    // TODO: check if in same square is a equal number
+    
+
+}
+
+bool solve2(queue<int> q, vector<int> &m) {
+    int current = q.front();
+    q.pop();
+    for(int i = 1; i <= 9; i++) {
+        m[current] = i;
+        if(!check2(m, current)) {
+            m[current] = 0;
+            continue;
+        }
+        if(solve2(q, m)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 int main() {
@@ -113,7 +148,8 @@ int main() {
 
       // solve sudoku
       bool has_solution = false;
-      has_solution = solve(q, m);
+      printm(m);
+      has_solution = solve2(q, m);
       //cout << endl;
       printm(m);
 
@@ -128,3 +164,7 @@ int main() {
    }
    return 0;
 }
+
+/*
+1 5 6 8 3 7 1 4 9 2 9 1 2 4 8 5 3 6 7 4 3 7 6 9 2 5 1 8 1 2 4 ? ? ? 7 3 9 7 5 6 ? ? ? 2 8 1 8 9 3 ? ? ? 6 4 5 6 7 9 1 2 4 8 5 3 3 8 5 7 6 9 1 2 4 2 4 1 5 3 8 9 7 6
+*/
